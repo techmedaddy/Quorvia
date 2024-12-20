@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  backend:
+    image: node:18
+    container_name: quorvia_backend
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "48765:3000" # Random unique external port for backend
+    environment:
+      NODE_ENV: development
+      POSTGRES_URL: postgres://quorvia_user:quorvia_password@postgres:5432/quorvia_db
+      REDIS_HOST: redis
+      REDIS_PORT: 63791
+      SMTP_HOST: smtp.mailtrap.io
+      SMTP_PORT: 587
+      SMTP_USER: your_smtp_username
+      SMTP_PASS: your_smtp_password
+    depends_on:
+      - postgres
+      - redis
+    command: ["npm", "start"]
+
+  frontend:
+    image: node:18
+    container_name: quorvia_frontend
+    working_dir: /usr/src/app
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "48766:3001" # Random unique external port for frontend
+    command: ["npm", "start"]
+
+  postgres:
+    image: postgres:15
+    container_name: quorvia_postgres
+    ports:
+      - "48767:5432" # Random unique external port for PostgreSQL
+    environment:
+      POSTGRES_USER: quorvia_user
+      POSTGRES_PASSWORD: quorvia_password
+      POSTGRES_DB: quorvia_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: quorvia_redis
+    ports:
+      - "63791:6379" # Random unique external port for Redis
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
