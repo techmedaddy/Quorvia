@@ -6,12 +6,12 @@ services:
     container_name: quorvia_backend
     working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app # Mount the root directory to the container
+      - .:/usr/src/app
     ports:
-      - "48765:3000" # Expose backend service on port 48765
+      - "48765:3000"
     environment:
       NODE_ENV: development
-      POSTGRES_URL: postgres://quorvia_user:quorvia_password@postgres:5432/quorvia_db
+      POSTGRES_URL: postgres://quorvia_user:quorvia_password@postgres:5432/quorvia_user
       REDIS_HOST: redis
       REDIS_PORT: 63791
       SMTP_HOST: smtp.mailtrap.io
@@ -30,23 +30,23 @@ services:
     container_name: quorvia_frontend
     working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app # Mount the root directory to the container
+      - .:/usr/src/app
     ports:
-      - "48766:3001" # Expose frontend service on port 48766
+      - "48766:3001"
     command: ["sh", "-c", "npm install && npm run start:frontend"]
 
   postgres:
     image: postgres:15
     container_name: quorvia_postgres
     ports:
-      - "48767:5432" # Expose PostgreSQL service on port 48767
+      - "48767:5432"
     environment:
       POSTGRES_USER: quorvia_user
       POSTGRES_PASSWORD: quorvia_password
-      POSTGRES_DB: quorvia_db
+      POSTGRES_DB: quorvia_user
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Automatically create `quorvia_db` if not present
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U quorvia_user"]
       interval: 10s
@@ -57,7 +57,7 @@ services:
     image: redis:7
     container_name: quorvia_redis
     ports:
-      - "63791:6379" # Expose Redis service on port 63791
+      - "63791:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -67,5 +67,5 @@ services:
       retries: 5
 
 volumes:
-  postgres_data: # Persistent data for PostgreSQL
-  redis_data: # Persistent data for Redis
+  postgres_data:
+  redis_data:

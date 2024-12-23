@@ -1,1 +1,1 @@
-CREATE DATABASE quorvia_db;
+CREATE DATABASE quorvia_user;
