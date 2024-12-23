@@ -4,11 +4,11 @@ services:
   backend:
     image: node:18
     container_name: quorvia_backend
-    working_dir: /usr/src/app/backend
+    working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app # Mount the root directory to the container
     ports:
-      - "48765:3000"
+      - "48765:3000" # Expose backend service on port 48765
     environment:
       NODE_ENV: development
       POSTGRES_URL: postgres://quorvia_user:quorvia_password@postgres:5432/quorvia_db
@@ -23,29 +23,30 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: ["/bin/sh", "-c", "cd backend && npm install && npm start"]
+    command: ["sh", "-c", "npm install && npm run start:backend"]
 
   frontend:
     image: node:18
     container_name: quorvia_frontend
-    working_dir: /usr/src/app/frontend
+    working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app # Mount the root directory to the container
     ports:
-      - "48766:3001"
-    command: ["/bin/sh", "-c", "cd frontend && npm install && npm start"]
+      - "48766:3001" # Expose frontend service on port 48766
+    command: ["sh", "-c", "npm install && npm run start:frontend"]
 
   postgres:
     image: postgres:15
     container_name: quorvia_postgres
     ports:
-      - "48767:5432"
+      - "48767:5432" # Expose PostgreSQL service on port 48767
     environment:
       POSTGRES_USER: quorvia_user
       POSTGRES_PASSWORD: quorvia_password
       POSTGRES_DB: quorvia_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Automatically create `quorvia_db` if not present
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U quorvia_user"]
       interval: 10s
@@ -56,7 +57,7 @@ services:
     image: redis:7
     container_name: quorvia_redis
     ports:
-      - "63791:6379"
+      - "63791:6379" # Expose Redis service on port 63791
     volumes:
       - redis_data:/data
     healthcheck:
@@ -66,5 +67,5 @@ services:
       retries: 5
 
 volumes:
-  postgres_data:
-  redis_data:
+  postgres_data: # Persistent data for PostgreSQL
+  redis_data: # Persistent data for Redis
