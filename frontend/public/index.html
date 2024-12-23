@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quorvia - Email Service</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Quorvia</h1>
+            <p>Your Reliable Email Service</p>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <form id="emailForm">
+                    <h2>Send an Email</h2>
+                    <label for="sender">Sender Email:</label>
+                    <input type="email" id="sender" name="sender" required>
+
+                    <label for="recipient">Recipient Email:</label>
+                    <input type="email" id="recipient" name="recipient" required>
+
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject">
+
+                    <label for="content">Message:</label>
+                    <textarea id="content" name="content" rows="5"></textarea>
+
+                    <label for="attachment">Attachment:</label>
+                    <input type="file" id="attachment" name="attachment">
+
+                    <button type="submit">Send Email</button>
+                </form>
+                <div id="responseMessage"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Quorvia. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
