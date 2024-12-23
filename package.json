@@ -32,6 +32,6 @@
     "node": ">=16"
   },
   "keywords": ["email", "smtp", "nodejs", "express", "redis", "postgresql"],
-  "author": "Your Name",
+  "author": "Umar Ejaz Imam",
   "license": "MIT"
 }
