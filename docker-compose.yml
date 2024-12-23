@@ -4,12 +4,11 @@ services:
   backend:
     image: node:18
     container_name: quorvia_backend
-    working_dir: /usr/src/app
+    working_dir: /usr/src/app/backend
     volumes:
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
+      - .:/usr/src/app
     ports:
-      - "48765:3000" # Random unique external port for backend
+      - "48765:3000"
     environment:
       NODE_ENV: development
       POSTGRES_URL: postgres://quorvia_user:quorvia_password@postgres:5432/quorvia_db
@@ -24,24 +23,23 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: ["/bin/sh", "-c", "npm install && npm start"]
+    command: ["/bin/sh", "-c", "cd backend && npm install && npm start"]
 
   frontend:
     image: node:18
     container_name: quorvia_frontend
-    working_dir: /usr/src/app
+    working_dir: /usr/src/app/frontend
     volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
+      - .:/usr/src/app
     ports:
-      - "48766:3001" # Random unique external port for frontend
-    command: ["/bin/sh", "-c", "npm install && npm start"]
+      - "48766:3001"
+    command: ["/bin/sh", "-c", "cd frontend && npm install && npm start"]
 
   postgres:
     image: postgres:15
     container_name: quorvia_postgres
     ports:
-      - "48767:5432" # Random unique external port for PostgreSQL
+      - "48767:5432"
     environment:
       POSTGRES_USER: quorvia_user
       POSTGRES_PASSWORD: quorvia_password
@@ -58,7 +56,7 @@ services:
     image: redis:7
     container_name: quorvia_redis
     ports:
-      - "63791:6379" # Random unique external port for Redis
+      - "63791:6379"
     volumes:
       - redis_data:/data
     healthcheck:
