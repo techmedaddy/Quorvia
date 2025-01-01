@@ -6,7 +6,7 @@ services:
     container_name: quorvia_backend
     working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app
+      - ./backend:/usr/src/app
     ports:
       - "48765:3000"
     environment:
@@ -30,7 +30,7 @@ services:
     container_name: quorvia_frontend
     working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app
+      - ./frontend:/usr/src/app
     ports:
       - "48766:3001"
     command: ["sh", "-c", "npm install && npm run start:frontend"]
