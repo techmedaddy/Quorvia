@@ -1,6 +1,6 @@
 const http = require('http');
 const dotenv = require('dotenv');
-const { connectToDatabase } = require('./config/database.config');
+const { connectToDatabase } = require('./config/database.config').default;
 const { connectToRedis } = require('./config/redis.config');
 const Logger = require('./utils/logger');
 const app = require('./app');

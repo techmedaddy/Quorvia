@@ -1,6 +1,6 @@
 javascript
 const { DataTypes, Model } = require('sequelize');
-const { sequelize } = require('../config/database.config');
+const { sequelize } = require('../config/database.config').default;
 
 class Email extends Model {}
 

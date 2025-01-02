@@ -1,7 +1,7 @@
 javascript
 const { DataTypes, Model } = require('sequelize');
 const bcrypt = require('bcrypt');
-const { sequelize } = require('../config/database.config');
+const { sequelize } = require('../config/database.config').default;
 
 class User extends Model {
   // Compare provided password with hashed password
