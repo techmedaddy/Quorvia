@@ -1,0 +1,33 @@
+{
+    "name": "quorvia-backend",
+    "version": "1.0.0",
+    "description": "Backend for the Quorvia application",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run dev",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/quorvia-backend.git"
+    },
+    "keywords": [
+        "backend",
+        "nodejs",
+        "quorvia"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/yourusername/quorvia-backend/issues"
+    },
+    "homepage": "https://github.com/yourusername/quorvia-backend#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "mongoose": "^5.12.3",
+        "dotenv": "^8.2.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
+}
